@@ -1,0 +1,433 @@
+:root {
+    /* ========================================== */
+    /* PREMIUM LIGHT MODE: "Alabaster & Brass"    */
+    /* ========================================== */
+    --bg: #FAF9F6; /* Warm, expensive off-white (like luxury paper) */
+    --surface: #FFFFFF; /* Crisp pure white for floating cards */
+    --text: #1C2431; /* Deep charcoal ink (better contrast than black) */
+    --text-muted: #647082; /* Sophisticated slate */
+    --border: rgba(158, 126, 56, 0.2); /* Faint antique brass border */
+    --nav-bg: rgba(250, 249, 246, 0.85);
+    --gold-current: #9E7E38; /* Richer, darker gold for Light Mode contrast */
+    --glass-shadow: 0 20px 40px -10px rgba(28, 36, 49, 0.06); /* Soft, diffused luxury shadow */
+}
+
+.dark {
+    /* ========================================== */
+    /* PREMIUM DARK MODE: "Midnight Slate"        */
+    /* ========================================== */
+    --bg: #0D1B2A;
+    --surface: rgba(27, 38, 59, 0.7);
+    --text: #F8F9FA;
+    --text-muted: #9CA3AF;
+    --border: rgba(198, 168, 74, 0.15);
+    --nav-bg: rgba(13, 27, 42, 0.85);
+    --gold-current: #C6A84A;
+    --glass-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
+}
+
+/* ========================================== */
+/* ANIMATIVE "LIQUID" THEME TRANSITIONS       */
+/* ========================================== */
+
+/* 1. Global smooth morph for all background and text colors */
+*, *::before, *::after {
+    transition: background-color 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                color 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                fill 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+                stroke 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+body, html {
+    scroll-behavior: smooth;
+    cursor: none;
+    background-color: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+}
+
+/* 2. The Light Mode "Charisma" Texture Overlay */
+/* This creates a faint, animated watermark grid that only appears in Light Mode */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    pointer-events: none;
+    background-image: radial-gradient(var(--gold-current) 0.5px, transparent 0.5px);
+    background-size: 32px 32px;
+    opacity: 0;
+    transform: scale(1.05);
+    transition: opacity 1.2s ease-in-out, transform 1.2s ease-out;
+}
+
+/* When switching to Light Mode, the grid slowly fades in and scales down */
+:root:not(.dark) body::before {
+    opacity: 0.05; 
+    transform: scale(1);
+}
+
+::selection {
+    background: var(--gold-current);
+    color: #FAF9F6;
+}
+
+/* ========================================== */
+/* SURFACES & CARDS                           */
+/* ========================================== */
+.service-card, .faq-item, .bg-themeSurface {
+    background-color: var(--surface);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border);
+    box-shadow: var(--glass-shadow);
+    /* Animative breath on hover */
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
+                box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.5s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    border-color: var(--gold-current);
+    box-shadow: 0 25px 50px -12px rgba(158, 126, 56, 0.15); /* Golden glow on hover */
+}
+
+.nav-scrolled {
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: var(--glass-shadow);
+}
+
+
+.reveal.active {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Components */
+.nav-scrolled {
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(198, 168, 74, 0.2);
+}
+
+.btn-gold-fill {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--gold-current);
+    color: var(--gold-current);
+    z-index: 1;
+    transition: color 0.3s ease;
+    outline: none;
+}
+
+.btn-gold-fill::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--gold-current);
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.5s ease;
+    z-index: -1;
+}
+
+.btn-gold-fill:hover,
+.btn-gold-fill:focus {
+    color: #0B1622;
+}
+
+.btn-gold-fill:hover::before,
+.btn-gold-fill:focus::before {
+    transform: scaleX(1);
+    transform-origin: left;
+}
+
+.btn-solid-gold {
+    background-color: var(--gold-current);
+    color: #0B1622;
+    border: 1px solid var(--gold-current);
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.btn-solid-gold:hover,
+.btn-solid-gold:focus {
+    background-color: transparent;
+    color: var(--gold-current);
+    box-shadow: 0 0 20px rgba(198, 168, 74, 0.3);
+}
+
+.service-card {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    transition: all 0.4s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--gold-current);
+    box-shadow: 0 20px 40px -10px rgba(198, 168, 74, 0.15);
+}
+
+/* Mobile Menu */
+#mobile-menu {
+    transition: opacity 0.4s ease, transform 0.4s ease;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-10px);
+}
+
+#mobile-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* Typography & Layout */
+.ugratara-logo {
+    fill: none;
+    stroke: var(--gold-current);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.ugratara-logo-filled {
+    fill: var(--gold-current);
+}
+
+.timeline-line {
+    position: absolute;
+    left: 24px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--gold-current) 0%, transparent 100%);
+}
+
+@media (min-width: 768px) {
+    .timeline-line {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}
+
+/* Article Prose */
+.prose h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+}
+
+.prose h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+.prose h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: var(--gold-current);
+}
+
+.prose p {
+    margin-bottom: 1.25rem;
+    line-height: 1.8;
+    color: var(--text-muted);
+    font-weight: 300;
+    font-size: 1.05rem;
+}
+
+.prose ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin-bottom: 1.5rem;
+    color: var(--text-muted);
+    font-weight: 300;
+}
+
+.prose li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.prose li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--gold-current);
+    font-weight: bold;
+}
+
+/* AI Chat Box */
+.chat-container {
+    height: 400px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold-current) transparent;
+}
+
+.chat-msg {
+    max-width: 85%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.msg-user {
+    background-color: rgba(198, 168, 74, 0.1);
+    border: 1px solid var(--gold-current);
+    color: var(--text);
+    margin-left: auto;
+    border-bottom-right-radius: 0;
+}
+
+.msg-ai {
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    margin-right: auto;
+    border-bottom-left-radius: 0;
+}
+
+.msg-ai h3 {
+    color: var(--gold-current);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.msg-ai ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.msg-ai li {
+    margin-bottom: 0.25rem;
+}
+
+.msg-ai strong {
+    color: var(--text);
+}
+
+
+
+/* Live News Ticker */
+.ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    background-color: #0D1B2A;
+    border-bottom: 1px solid var(--gold-current);
+    padding: 10px 0;
+    white-space: nowrap;
+    box-sizing: border-box;
+    position: relative;
+    /* This fixes the hiding issue! */
+    z-index: 10;
+}
+
+.ticker {
+    display: inline-block;
+    white-space: nowrap;
+    padding-left: 100%;
+    box-sizing: content-box;
+    animation: ticker 60s linear infinite;
+}
+
+.ticker:hover {
+    animation-play-state: paused;
+    /* Pauses when user hovers to read */
+}
+
+.ticker-item {
+    display: inline-block;
+    padding: 0 3rem;
+    color: var(--gold-current);
+    /* Gold text */
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+}
+
+
+
+@keyframes ticker {
+    0% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    100% {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+/* ========================================== */
+/* CUSTOM CURSOR (Restored & Protected)       */
+/* ========================================== */
+.cursor-dot,
+.cursor-outline {
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    z-index: 9999 !important; /* Forces it above all new elements */
+    pointer-events: none;
+    /* Protects the cursor from the global 0.8s liquid transition */
+    transition: width 0.2s, height 0.2s, background-color 0.2s, border-color 0.2s !important; 
+}
+
+.cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: var(--gold-current);
+}
+
+.cursor-outline {
+    width: 40px;
+    height: 40px;
+    border: 1px solid rgba(198, 168, 74, 0.5);
+}
+
+.cursor-hover .cursor-outline {
+    width: 60px;
+    height: 60px;
+    background-color: rgba(198, 168, 74, 0.1);
+    border-color: var(--gold-current);
+}
+
+/* Ensure mobile devices revert to standard touch behavior */
+@media (max-width: 768px) {
+    .cursor-dot,
+    .cursor-outline {
+        display: none !important;
+    }
+    body, html {
+        cursor: auto !important;
+    }
+}

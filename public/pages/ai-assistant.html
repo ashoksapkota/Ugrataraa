@@ -1,0 +1,64 @@
+<section class="py-20 md:py-32 bg-themeBg min-h-[85vh] flex items-center">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 w-full">
+        <div class="text-center mb-12 reveal">
+            <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-4 block">Powered by Gemini AI</span>
+            <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-4">Ugratara Compliance Hub.</h1>
+            <p class="text-themeMuted font-light text-sm max-w-2xl mx-auto">Access our virtual corporate lawyer for instant queries, or generate a customized compliance checklist for your specific business structure in Nepal.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-themeSurface border border-themeBorder rounded-lg shadow-2xl reveal overflow-hidden flex flex-col h-[600px]">
+                <div id="ai-chat-box" class="chat-container flex-grow p-6 bg-themeBg border-b border-themeBorder">
+                    <div class="chat-msg msg-ai">
+                        <h3>Welcome to Ugratara Legal AI</h3>
+                        <p>I am trained on Nepalese corporate law and taxation. How may I assist your enterprise today? Try asking about:</p>
+                        <ul>
+                            <li>"What are the VAT registration thresholds in Nepal?"</li>
+                            <li>"Generate a compliance checklist for a new IT company."</li>
+                            <li>"Explain the penalty for late audit submission at OCR."</li>
+                        </ul>
+                        <p class="text-[10px] uppercase tracking-widest mt-4 opacity-70 border-t border-themeBorder pt-2">Disclaimer: AI-generated guidance. Consult Ugratara advisors for official legal advice.</p>
+                    </div>
+                </div>
+                <div class="p-4 bg-themeSurface flex gap-4">
+                    <textarea id="ai-chat-input" rows="2" class="flex-grow bg-themeBg border border-themeBorder rounded p-3 text-themeText focus:outline-none focus:border-gold transition-colors text-sm resize-none" placeholder="Type your corporate compliance query here..."></textarea>
+                    <button id="btn-send-chat" class="btn-solid-gold px-6 rounded text-sm uppercase tracking-widest font-semibold interactable self-end py-3 flex items-center h-[50px]">
+                        <i data-lucide="send" class="w-4 h-4 mr-2"></i> Ask
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-themeSurface border border-themeBorder rounded-lg shadow-2xl reveal p-8 flex flex-col h-[600px]">
+                <h3 class="font-serif text-2xl font-semibold mb-6 text-themeText">Smart Checklist Generator</h3>
+                <div class="space-y-4 mb-6">
+                    <select id="ai-check-type" class="w-full bg-themeBg border border-themeBorder rounded p-3 text-themeText focus:border-gold outline-none text-sm appearance-none cursor-pointer">
+                        <option value="" disabled selected>Select Business Industry</option>
+                        <option value="IT/Tech Export">IT / Software Export</option>
+                        <option value="Manufacturing">Manufacturing</option>
+                        <option value="Trading/Retail">Trading / Retail</option>
+                        <option value="Consulting Service">Professional Consulting</option>
+                    </select>
+                    <select id="ai-check-turnover" class="w-full bg-themeBg border border-themeBorder rounded p-3 text-themeText focus:border-gold outline-none text-sm appearance-none cursor-pointer">
+                        <option value="" disabled selected>Expected Annual Turnover</option>
+                        <option value="Below 20 Lakhs">Below NPR 20 Lakhs</option>
+                        <option value="20 Lakhs to 50 Lakhs">NPR 20 Lakhs - 50 Lakhs</option>
+                        <option value="Above 50 Lakhs">Above NPR 50 Lakhs</option>
+                    </select>
+                    <select id="ai-check-fdi" class="w-full bg-themeBg border border-themeBorder rounded p-3 text-themeText focus:border-gold outline-none text-sm appearance-none cursor-pointer">
+                        <option value="No FDI">100% Local Investment</option>
+                        <option value="With FDI">Includes Foreign Direct Investment (FDI)</option>
+                    </select>
+                </div>
+                <button id="btn-generate-checklist" class="btn-solid-gold w-full py-3 rounded text-sm uppercase tracking-widest font-semibold interactable mb-6">
+                    ✨ Generate Custom Checklist
+                </button>
+                <div id="checklist-output" class="flex-grow overflow-y-auto bg-themeBg border border-themeBorder rounded p-6 text-sm text-themeMuted prose prose-sm max-w-none">
+                    <div class="flex flex-col items-center justify-center h-full opacity-50">
+                        <i data-lucide="clipboard-list" class="w-12 h-12 text-gold mb-4"></i>
+                        <p class="text-center">Your custom compliance checklist will appear here.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

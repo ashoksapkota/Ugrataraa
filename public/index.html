@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ugratara Advisors | Premium Tax Consultant & Accounting Firm in Nepal</title>
+    <meta name="description" content="Ugratara Advisors is Nepal's premier corporate advisory firm specializing in tax consultancy, audit, business registration, and FDI advisory services.">
+    <meta name="keywords" content="tax consultant Nepal, accounting firm Kathmandu, business registration Nepal, FDI advisory Nepal, Ugratara Advisors">
+    <meta name="author" content="Ugratara Advisors">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ugrataraadvisors.com.np/">
+
+    <meta property="og:title" content="Ugratara Advisors | Premium Tax Consultant & Accounting Firm in Nepal">
+    <meta property="og:description" content="Nepal's premier corporate advisory firm specializing in tax consultancy, audit, business registration, and FDI advisory services.">
+    <meta property="og:image" content="https://www.ugrataraadvisors.com.np/assets/logo-full.png">
+    <meta property="og:url" content="https://www.ugrataraadvisors.com.np/">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_NP">
+    <meta property="og:site_name" content="Ugratara Advisors">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Ugratara Advisors | Premium Tax Consultant & Accounting Firm in Nepal">
+    <meta name="twitter:description" content="Nepal's premier corporate advisory firm specializing in tax consultancy, audit, business registration, and FDI advisory services.">
+    <meta name="twitter:image" content="https://www.ugrataraadvisors.com.np/assets/logo-full.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        themeBg: 'var(--bg)', 
+                        themeSurface: 'var(--surface)', 
+                        themeText: 'var(--text)',
+                        themeMuted: 'var(--text-muted)', 
+                        themeBorder: 'var(--border)',
+                        navy: '#0D1B2A', 
+                        gold: { DEFAULT: '#C6A84A', hover: '#E2C76D' }
+                    },
+                    fontFamily: { 
+                        sans: ['Inter', 'sans-serif'], 
+                        serif: ['Playfair Display', 'serif'] 
+                    },
+                }
+            }
+        }
+    </script>
+
+    
+    <link rel="stylesheet" href="/css/style.css">
+
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
+</head>
+<body class="bg-themeBg text-themeText antialiased font-sans flex flex-col min-h-screen transition-colors duration-500">
+    
+    
+
+    
+    <div class="fixed inset-0 pointer-events-none z-[-1] opacity-30 dark:opacity-0 bg-[radial-gradient(#C6A84A_0.5px,transparent_0.5px)] [background-size:24px_24px]"></div>
+
+    
+    <div class="cursor-dot hidden md:block"></div>
+    <div class="cursor-outline hidden md:block"></div>
+
+    <div id="nav-placeholder"></div>
+    
+    <main id="app-root" class="flex-grow pt-24">
+        </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script type="module" src="/js/app.js"></script>
+</body>
+</html>

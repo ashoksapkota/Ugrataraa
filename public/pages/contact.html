@@ -1,0 +1,103 @@
+<section class="py-20 md:py-32 bg-themeSurface">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 reveal">
+        
+        <div class="flex flex-col h-full">
+            <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-4 block">Contact Partners</span>
+            <h1 class="font-serif text-4xl md:text-6xl font-semibold mb-8">Initiate Dialogue.</h1>
+            <p class="text-themeMuted font-light mb-12 text-lg">Schedule a high-level briefing to discuss corporate audits, complex taxation disputes, or FDI structuring in Nepal.</p>
+            
+            <div class="space-y-8 border-t border-themeBorder pt-8 mb-10">
+                <div>
+                    <h4 class="font-serif font-semibold text-lg">HQ Location</h4>
+                    <p class="text-themeMuted font-light text-sm mt-1">Kathmandu-29, Anamnagar, Bagmati Province</p>
+                </div>
+                <div>
+                    <h4 class="font-serif font-semibold text-lg">Direct Lines</h4>
+                    <p class="text-themeMuted font-light text-sm mt-1">
+                        <a href="mailto:tax@ugratara.com.np" class="hover:text-gold transition-colors interactable">tax@ugratara.com.np</a> <br> 
+                        <a href="mailto:audit@ugratara.com.np" class="hover:text-gold transition-colors interactable">audit@ugratara.com.np</a> <br> 
+                        <a href="tel:+97714XXXXXX" class="hover:text-gold transition-colors interactable">+977 1-4XXXXXX</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex-grow w-full min-h-[250px] rounded border border-themeBorder overflow-hidden opacity-90 hover:opacity-100 transition-opacity">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14130.857353934944!2d85.31494041185406!3d27.695222623351233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19b0221379dd%3A0xcda9a7da8832a849!2sAnamnagar%2C%20Kathmandu%2044600%2C%20Nepal!5e0!3m2!1sen!2sus!4v1709400000000!5m2!1sen!2sus" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="bg-themeBg p-8 md:p-12 rounded border border-themeBorder shadow-xl relative h-fit">
+            <form id="contact-form" class="space-y-6">
+                <input type="text" id="contact-company" required class="w-full bg-transparent border-b border-themeBorder py-3 text-themeText focus:border-gold outline-none text-sm" placeholder="Corporate Name / Entity">
+                <input type="email" id="contact-email" required class="w-full bg-transparent border-b border-themeBorder py-3 text-themeText focus:border-gold outline-none text-sm" placeholder="Official Email Address">
+                <select id="contact-domain" required class="w-full bg-transparent border-b border-themeBorder py-3 text-themeText focus:border-gold outline-none text-sm cursor-pointer appearance-none">
+                    <option value="" disabled selected class="bg-themeBg">Select Advisory Domain</option>
+                    <option value="tax" class="bg-themeBg">Tax Advisory & VAT Compliance</option>
+                    <option value="audit" class="bg-themeBg">Statutory / Internal Audit</option>
+                    <option value="reg" class="bg-themeBg">Company Registration / Legal</option>
+                </select>
+                <textarea id="contact-message" rows="4" required class="w-full bg-transparent border-b border-themeBorder py-3 text-themeText focus:border-gold outline-none text-sm resize-none" placeholder="Brief outline of your corporate requirement..."></textarea>
+                
+                <div id="form-status" class="hidden text-sm font-semibold p-4 rounded text-center border"></div>
+                
+                <button type="submit" id="contact-submit" class="btn-solid-gold w-full py-4 uppercase tracking-widest text-sm font-semibold interactable">Submit Inquiry</button>
+            </form>
+        </div>
+        
+    </div>
+</section>
+
+<script>
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const submitBtn = document.getElementById('contact-submit');
+        const statusDiv = document.getElementById('form-status');
+        
+        submitBtn.innerHTML = 'Sending securely...';
+        submitBtn.disabled = true;
+        statusDiv.classList.add('hidden');
+        
+        const payload = {
+            company: document.getElementById('contact-company').value,
+            email: document.getElementById('contact-email').value,
+            domain: document.getElementById('contact-domain').value,
+            message: document.getElementById('contact-message').value
+        };
+
+        try {
+            const res = await fetch('/api/contact', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const data = await res.json();
+            
+            statusDiv.classList.remove('hidden');
+            if (data.success) {
+                statusDiv.classList.add('text-gold', 'border-gold', 'bg-gold/10');
+                statusDiv.classList.remove('text-red-500', 'border-red-500', 'bg-red-500/10');
+                statusDiv.innerText = "Inquiry sent successfully. A partner will review your request.";
+                document.getElementById('contact-form').reset();
+            } else {
+                throw new Error(data.error);
+            }
+        } catch (error) {
+            statusDiv.classList.remove('hidden');
+            statusDiv.classList.add('text-red-500', 'border-red-500', 'bg-red-500/10');
+            statusDiv.classList.remove('text-gold', 'border-gold', 'bg-gold/10');
+            statusDiv.innerText = "Failed to send. Please try again or email us directly.";
+        } finally {
+            submitBtn.innerHTML = 'Submit Inquiry';
+            submitBtn.disabled = false;
+        }
+    });
+</script>

@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /components/
+
+Sitemap: https://www.ugrataraadvisors.com.np/sitemap.xml

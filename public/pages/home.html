@@ -1,0 +1,250 @@
+<div id="news-ticker-wrap" class="ticker-wrap hidden">
+    <div id="news-ticker-content" class="ticker">
+        </div>
+</div>
+
+<section class="relative min-h-[85vh] flex items-center pb-12 overflow-hidden border-b border-themeBorder">
+    <div class="absolute inset-0 z-0 pointer-events-none opacity-20 dark:opacity-10" style="background-image: radial-gradient(var(--gold-current) 1px, transparent 1px); background-size: 40px 40px;"></div>
+    <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 w-full mt-10 md:mt-0">
+        <div class="max-w-4xl reveal">
+            <div class="flex items-center gap-4 mb-6">
+                <span class="w-8 md:w-12 h-[1px] bg-gold"></span>
+                <span class="text-gold uppercase tracking-[0.2em] text-[10px] md:text-xs font-semibold">Nepal's Authoritative Financial Intelligence Firm</span>
+            </div>
+            <h1 class="font-serif text-4xl md:text-6xl lg:text-[5rem] leading-[1.1] mb-8 font-semibold text-themeText">
+                Strategic Tax & <br/><span class="text-themeMuted italic font-light">Corporate Structuring.</span>
+            </h1>
+            <p class="text-themeMuted text-base md:text-xl leading-relaxed mb-10 max-w-2xl font-light">
+                Beyond bookkeeping. We engineer robust financial architecture, guarantee absolute IRD/OCR regulatory compliance, and deliver capital growth strategies for elite Nepalese enterprises and FDIs.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 md:gap-6">
+                <button onclick="navigateTo('contact')" class="btn-solid-gold px-8 py-4 rounded text-xs md:text-sm uppercase tracking-widest font-semibold text-center interactable">Consult Senior Partners</button>
+                <button onclick="navigateTo('ai-assistant')" class="btn-gold-fill px-8 py-4 rounded text-xs md:text-sm uppercase tracking-widest font-semibold text-center interactable">Try AI Compliance Assistant</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-12 border-y border-themeBorder bg-themeSurface reveal">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center divide-x-0 md:divide-x divide-themeBorder/50">
+            <div class="p-4">
+                <h3 class="font-serif text-3xl md:text-4xl font-bold text-gold mb-2">100%</h3>
+                <p class="text-themeMuted text-xs uppercase tracking-[0.15em] font-semibold">Regulatory Compliance</p>
+            </div>
+            <div class="p-4">
+                <h3 class="font-serif text-3xl md:text-4xl font-bold text-gold mb-2">10+</h3>
+                <p class="text-themeMuted text-xs uppercase tracking-[0.15em] font-semibold">Years Combined Exp.</p>
+            </div>
+            <div class="p-4">
+                <h3 class="font-serif text-3xl md:text-4xl font-bold text-gold mb-2">NFRS</h3>
+                <p class="text-themeMuted text-xs uppercase tracking-[0.15em] font-semibold">Certified Methodologies</p>
+            </div>
+            <div class="p-4">
+                <h3 class="font-serif text-3xl md:text-4xl font-bold text-gold mb-2">IRD</h3>
+                <p class="text-themeMuted text-xs uppercase tracking-[0.15em] font-semibold">Specialized Navigators</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-24 bg-themeBg border-b border-themeBorder">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+            <div>
+                <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-3 block">Corporate Solutions</span>
+                <h2 class="font-serif text-3xl md:text-5xl font-semibold">Service Architecture.</h2>
+            </div>
+            <button onclick="navigateTo('services')" class="mt-6 md:mt-0 flex items-center text-gold text-sm uppercase tracking-widest font-semibold hover:text-themeText transition-colors interactable outline-none">
+                View All Core Services <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal" id="home-services-grid">
+            </div>
+    </div>
+</section>
+
+
+<section class="py-20 md:py-32 bg-themeBg border-y border-themeBorder reveal">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+            <div class="max-w-2xl">
+                <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-4 block">Sector Intelligence</span>
+                <h2 class="font-serif text-3xl md:text-4xl font-semibold mb-6 text-themeText">Tailored financial strategies for Nepal's driving industries.</h2>
+            </div>
+            <p class="text-themeMuted font-light text-sm max-w-sm md:text-right pb-2">Tax laws apply differently across sectors. We bring specialized knowledge to optimize your specific industry structure.</p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-x-6 gap-y-12">
+            <div class="group cursor-default">
+                <i data-lucide="zap" class="w-8 h-8 text-themeMuted group-hover:text-gold transition-colors mb-4"></i>
+                <h4 class="font-serif text-lg font-semibold text-themeText mb-2">Hydropower & Energy</h4>
+                <div class="w-8 h-px bg-themeBorder group-hover:bg-gold transition-colors group-hover:w-16 duration-300"></div>
+            </div>
+            <div class="group cursor-default">
+                <i data-lucide="monitor-smartphone" class="w-8 h-8 text-themeMuted group-hover:text-gold transition-colors mb-4"></i>
+                <h4 class="font-serif text-lg font-semibold text-themeText mb-2">IT & FinTech</h4>
+                <div class="w-8 h-px bg-themeBorder group-hover:bg-gold transition-colors group-hover:w-16 duration-300"></div>
+            </div>
+            <div class="group cursor-default">
+                <i data-lucide="factory" class="w-8 h-8 text-themeMuted group-hover:text-gold transition-colors mb-4"></i>
+                <h4 class="font-serif text-lg font-semibold text-themeText mb-2">Manufacturing</h4>
+                <div class="w-8 h-px bg-themeBorder group-hover:bg-gold transition-colors group-hover:w-16 duration-300"></div>
+            </div>
+            <div class="group cursor-default">
+                <i data-lucide="shopping-bag" class="w-8 h-8 text-themeMuted group-hover:text-gold transition-colors mb-4"></i>
+                <h4 class="font-serif text-lg font-semibold text-themeText mb-2">Retail & E-commerce</h4>
+                <div class="w-8 h-px bg-themeBorder group-hover:bg-gold transition-colors group-hover:w-16 duration-300"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-24 bg-themeSurface border-b border-themeBorder">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 text-center reveal">
+        <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-3 block">The Ugratara Standard</span>
+        <h2 class="font-serif text-3xl md:text-5xl font-semibold mb-6">Our Methodology.</h2>
+        <p class="text-themeMuted font-light max-w-2xl mx-auto mb-12">A systematic, uncompromising framework ensuring financial precision from forensic discovery to ongoing corporate growth.</p>
+        <div class="flex flex-wrap justify-center gap-4 mb-10">
+            <span class="px-4 py-2 border border-themeBorder rounded-full text-xs text-themeMuted">1. Discovery</span>
+            <span class="px-4 py-2 border border-themeBorder rounded-full text-xs text-themeMuted">2. Risk Analysis</span>
+            <span class="px-4 py-2 border border-themeBorder rounded-full text-xs text-themeMuted">3. Tax Planning</span>
+            <span class="px-4 py-2 border border-themeBorder rounded-full text-xs text-themeMuted">4. Execution</span>
+            <span class="px-4 py-2 border border-themeBorder rounded-full text-xs text-themeMuted">5. Reporting</span>
+            <span class="px-4 py-2 border border-themeBorder rounded-full text-xs text-themeMuted">6. Ongoing Advisory</span>
+        </div>
+        <button onclick="navigateTo('methodology')" class="btn-gold-fill px-8 py-3 rounded text-xs uppercase tracking-widest font-semibold interactable">Explore Methodology Timeline</button>
+    </div>
+</section>
+
+
+<section class="py-24 bg-themeSurface border-b border-themeBorder reveal relative overflow-hidden">
+    <div class="absolute top-10 left-10 md:left-24 text-[150px] font-serif text-themeBorder opacity-20 leading-none select-none">"</div>
+    
+    <div class="max-w-5xl mx-auto px-6 lg:px-12 relative z-10 text-center">
+        <div class="flex justify-center mb-8">
+            <div class="flex space-x-1 text-gold">
+                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+            </div>
+        </div>
+        <h3 class="font-serif text-2xl md:text-4xl leading-relaxed text-themeText mb-10 font-medium">
+            "Ugratara didn't just organize our accounts; they completely restructured our corporate tax strategy. Their proactive approach to the annual Finance Bill saved us significant capital during our recent expansion phase."
+        </h3>
+        <div>
+            <p class="text-xs uppercase tracking-widest font-bold text-gold mb-1">Board of Directors</p>
+            <p class="text-sm text-themeMuted">Leading Tech Enterprise, Kathmandu</p>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="py-20 md:py-32 bg-themeSurface border-y border-themeBorder reveal">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-4 block">The Ugratara Advantage</span>
+            <h2 class="font-serif text-3xl md:text-4xl font-semibold mb-6 text-themeText">Why leading enterprises trust our advisory.</h2>
+            <p class="text-themeMuted font-light text-lg">We move beyond traditional bookkeeping. We act as your proactive financial shield, anticipating regulatory shifts in Nepal's economic landscape before they impact your bottom line.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="p-8 border border-themeBorder rounded-lg bg-themeBg hover:border-gold transition-colors duration-300 group">
+                <div class="w-12 h-12 bg-themeSurface border border-themeBorder rounded flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="shield-check" class="w-6 h-6 text-gold"></i>
+                </div>
+                <h4 class="font-serif text-xl font-semibold text-themeText mb-3">Bulletproof Compliance</h4>
+                <p class="text-themeMuted text-sm leading-relaxed">Rigorous adherence to IRD mandates and OCR regulations, ensuring your business operates with zero legal friction.</p>
+            </div>
+            
+            <div class="p-8 border border-themeBorder rounded-lg bg-themeBg hover:border-gold transition-colors duration-300 group">
+                <div class="w-12 h-12 bg-themeSurface border border-themeBorder rounded flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="network" class="w-6 h-6 text-gold"></i>
+                </div>
+                <h4 class="font-serif text-xl font-semibold text-themeText mb-3">Tech-Forward Precision</h4>
+                <p class="text-themeMuted text-sm leading-relaxed">Utilizing modern cloud accounting ecosystems to provide you with real-time financial intelligence and seamless reporting.</p>
+            </div>
+
+            <div class="p-8 border border-themeBorder rounded-lg bg-themeBg hover:border-gold transition-colors duration-300 group">
+                <div class="w-12 h-12 bg-themeSurface border border-themeBorder rounded flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                    <i data-lucide="lock" class="w-6 h-6 text-gold"></i>
+                </div>
+                <h4 class="font-serif text-xl font-semibold text-themeText mb-3">Absolute Confidentiality</h4>
+                <p class="text-themeMuted text-sm leading-relaxed">Your financial data is your most valuable asset. We enforce strict internal protocols to guarantee uncompromising privacy.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="py-20 md:py-32 bg-themeBg border-b border-themeBorder reveal">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        
+        <div>
+            <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-4 block">Firm Leadership</span>
+            <h2 class="font-serif text-3xl md:text-5xl font-semibold mb-6 text-themeText">Guided by elite financial minds.</h2>
+            <p class="text-themeMuted font-light text-lg mb-8 leading-relaxed">Your financials are not handled by junior staff. Every strategy, audit, and tax filing is overseen directly by our founding Chartered Accountants, ensuring uncompromising precision.</p>
+            <button onclick="navigateTo('about')" class="px-8 py-3 rounded text-xs uppercase tracking-widest font-semibold border border-gold text-gold hover:bg-gold hover:text-navy transition-colors interactable">
+                Meet the Partners
+            </button>
+        </div>
+
+        <div class="flex justify-center lg:justify-end gap-6 md:gap-10">
+            <div class="text-center group">
+                <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-themeBorder overflow-hidden bg-themeSurface mb-4 flex items-center justify-center p-2 group-hover:border-gold transition-colors duration-500">
+                    <img src="/assets/rojina.png" alt="CA Rojina Dongol" class="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110">
+                </div>
+                <h4 class="font-serif text-lg font-semibold text-themeText">CA Rojina Dongol</h4>
+            </div>
+            
+            <div class="text-center group mt-12 md:mt-16">
+                <div class="w-32 h-32 md:w-40 md:h-40 rounded-full border-2 border-themeBorder overflow-hidden bg-themeSurface mb-4 flex items-center justify-center p-2 group-hover:border-gold transition-colors duration-500 shadow-xl">
+                    <img src="/assets/kritika.png" alt="CA Kritika Paneru" class="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-110">
+                </div>
+                <h4 class="font-serif text-lg font-semibold text-themeText">CA Kritika Paneru</h4>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="py-24 bg-themeBg border-b border-themeBorder">
+    <div class="max-w-7xl mx-auto px-6 lg:px-12">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+            <div>
+                <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-3 block">Knowledge Base</span>
+                <h2 class="font-serif text-3xl md:text-5xl font-semibold">Nepal Corporate Law Insights.</h2>
+            </div>
+            <button onclick="navigateTo('intelligence')" class="mt-6 md:mt-0 flex items-center text-gold text-sm uppercase tracking-widest font-semibold hover:text-themeText transition-colors interactable outline-none">
+                Access All 10 Articles <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i>
+            </button>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 reveal" id="home-articles-grid">
+            </div>
+    </div>
+</section>
+
+<section class="py-24 relative overflow-hidden reveal bg-themeSurface border-t border-themeBorder">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-gold/10 via-transparent to-transparent z-0"></div>
+    
+    <div class="max-w-4xl mx-auto px-6 lg:px-12 relative z-10 text-center">
+        <i data-lucide="building-2" class="w-12 h-12 text-gold mx-auto mb-6 opacity-80"></i>
+        <h2 class="font-serif text-3xl md:text-5xl font-semibold mb-6 text-themeText">Ready to optimize your corporate structure?</h2>
+        <p class="text-themeMuted font-light text-lg mb-10 max-w-2xl mx-auto">Stop paying unnecessary taxes and eliminate compliance risks. Schedule a confidential strategy session with our senior Chartered Accountants today.</p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <button onclick="navigateTo('contact')" class="btn-solid-gold px-8 py-4 rounded text-xs uppercase tracking-[0.2em] font-bold interactable w-full sm:w-auto shadow-[0_0_20px_rgba(201,168,76,0.3)] hover:shadow-[0_0_30px_rgba(201,168,76,0.5)] transition-shadow">
+                Book Consultation
+            </button>
+            <button onclick="navigateTo('services')" class="px-8 py-4 rounded text-xs uppercase tracking-[0.2em] font-bold border border-gold/50 text-gold hover:bg-gold/10 transition-colors interactable w-full sm:w-auto">
+                Explore Services
+            </button>
+        </div>
+    </div>
+</section>

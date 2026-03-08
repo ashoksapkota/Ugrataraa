@@ -1,0 +1,32 @@
+<section class="py-20 md:py-32 bg-themeBg min-h-screen">
+    <div class="max-w-4xl mx-auto px-6 lg:px-12">
+        
+        <div class="text-center mb-16 reveal">
+            <span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold mb-4 block">Knowledge Base</span>
+            <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-6 text-themeText">Instant Tax Answers.</h1>
+            <p class="text-themeMuted font-light text-lg mb-10">Search our verified database of Nepal's FY 2082/83 corporate and individual tax regulations.</p>
+            
+            <div class="relative max-w-2xl mx-auto">
+                <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gold w-5 h-5"></i>
+                <input type="text" id="faq-search" placeholder="Search for VAT, TDS, corporate tax..." class="w-full bg-themeSurface border border-themeBorder text-themeText pl-12 pr-4 py-4 rounded-lg focus:outline-none focus:border-gold transition-colors text-sm shadow-lg">
+            </div>
+        </div>
+
+        <div id="faq-container" class="space-y-4 reveal">
+            </div>
+
+        <div class="mt-16 bg-navy border-l-4 border-gold p-6 rounded text-left shadow-lg reveal">
+            <h4 class="text-gold font-serif text-lg mb-2 flex items-center"><i data-lucide="alert-triangle" class="w-5 h-5 mr-2"></i> Important Legal Disclaimer</h4>
+            <p class="text-[#9CA3AF] text-sm leading-relaxed m-0">The information in this Knowledge Base is compiled from publicly available sources including IRD.gov.np, and is intended for general informational purposes only. Tax laws in Nepal are subject to annual revision through the Finance Act. Ugra Tara Advisors does not accept liability for reliance on this data. Always consult a qualified tax professional or visit IRD.gov.np for the most current updates.</p>
+        </div>
+
+        <div class="mt-10 bg-themeSurface p-8 rounded-lg border border-themeBorder text-center reveal">
+            <h4 class="font-serif text-2xl text-themeText mb-3">Didn't find your answer?</h4>
+            <p class="text-themeMuted text-sm mb-6">Ask our AI Tax Assistant or escalate your query directly to our human partners.</p>
+            <button onclick="navigateTo('ai-assistant')" class="btn-solid-gold px-8 py-3 rounded text-xs uppercase tracking-widest font-semibold interactable flex items-center justify-center mx-auto gap-2">
+                Launch AI Assistant <i data-lucide="sparkles" class="w-4 h-4"></i>
+            </button>
+        </div>
+
+    </div>
+</section>
