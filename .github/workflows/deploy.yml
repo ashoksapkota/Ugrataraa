@@ -1,0 +1,32 @@
+name: 🚀 Deploy to Ugratara Server
+
+on:
+  push:
+    branches:
+      - main # Change this to 'master' if your default branch is master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+    
+    - name: 🔄 Trigger cPanel Server Restart
+      run: |
+        mkdir -p tmp
+        touch tmp/restart.txt
+
+    - name: 📂 Sync files via FTP
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_SERVER }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        # We exclude node_modules because it has 10,000+ files and takes hours to upload via FTP.
+        # We exclude .env so your local keys don't overwrite your secure cPanel vault.
+        exclude: |
+          **/.git*
+          **/.git*/**
+          node_modules/**
+          .env
