@@ -4,6 +4,8 @@ const nodemailer = require('nodemailer');
 const Parser = require('rss-parser');
 const path = require('path'); // Added this to ensure path.join works perfectly
 require('dotenv').config();
+const cors = require('cors');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,6 +15,35 @@ const parser = new Parser({
         'Accept': 'application/rss+xml, application/xml;q=0.9, text/xml;q=0.8, */*;q=0.1'
     }
 });
+
+app.use(cors({
+    origin: process.env.NODE_ENV === 'production'
+        ? ['https://ugrataraadvisors.com.np', 'https://www.ugrataraadvisors.com.np']
+        : ['http://localhost:3000', 'http://127.0.0.1:3000'],
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
+
+// ==========================================
+// RATE LIMITING 
+// ==========================================
+
+// 1. Global Limiter: Basic protection for all /api/ routes (Contact form, etc.)
+const globalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Max 100 requests per IP
+    message: { success: false, error: 'Too many requests, please try again later.' }
+});
+
+// 2. Strict AI Limiter: Specifically protects the Gemini API
+const aiLimiter = rateLimit({
+    windowMs: 1 * 60 * 1000, // 1 minute
+    max: 5, // Max 5 AI questions per IP per minute
+    message: { success: false, error: 'AI rate limit exceeded. Please wait 60 seconds.' }
+});
+
+// Apply the global limiter to everything in the /api/ folder
+app.use('/api/', globalLimiter);
 
 app.use(express.static('public'));
 app.use(express.json());
@@ -104,10 +135,13 @@ const apiKey = process.env.GEMINI_API_KEY || "MISSING_KEY";
 const genAI = new GoogleGenerativeAI(apiKey);
 const SYSTEM_INSTRUCTION = `You are the AI Legal and Tax Assistant for Ugratara Advisors, an elite firm in Nepal. Answer questions regarding Nepalese corporate law, the Companies Act 2063, VAT Act 2052, Income Tax Act 2058, OCR, and IRD. Be professional, highly precise, and format your response in clean HTML (using <p>, <ul>, <li>, <strong>, <h3>). Do not use markdown wrappers. Keep answers under 300 words. Conclude with a note advising them to consult Ugratara human partners.`;
 
-app.post('/api/gemini', async (req, res) => {
+app.post('/api/gemini', aiLimiter, async (req, res) => {
     try {
         if (apiKey === "MISSING_KEY") return res.status(500).json({ success: false, error: 'API Key missing' });
+        
+        /// FIX: Reverted to the active gemini-2.5-flash model!
         const model = genAI.getGenerativeModel({ model: 'gemini-2.5-flash', systemInstruction: SYSTEM_INSTRUCTION });
+        
         const result = await model.generateContent(req.body.prompt);
         res.json({ success: true, text: result.response.text() });
     } catch (error) {

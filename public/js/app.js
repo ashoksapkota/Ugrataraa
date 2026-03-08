@@ -31,7 +31,7 @@ const faqData = [
 // ==========================================
 // 1. SMART NAVIGATION ROUTER
 // ==========================================
-window.navigateTo = async function(route, pushState = true) {
+window.navigateTo = async function (route, pushState = true) {
     try {
         // Smart routing to handle specific detail pages (e.g. service-detail-audit)
         let baseRoute = route;
@@ -48,7 +48,7 @@ window.navigateTo = async function(route, pushState = true) {
         const response = await fetch(`/pages/${baseRoute}.html`);
         if (!response.ok) throw new Error('Page not found');
         const html = await response.text();
-        
+
         // Auto-Inject Back Button for Sub-Pages
         let finalHtml = html;
         if (baseRoute !== 'home') {
@@ -73,11 +73,13 @@ window.navigateTo = async function(route, pushState = true) {
         const titles = { 'home': 'Ugratara Advisors', 'about': 'About Us | Ugratara', 'services': 'Services | Ugratara', 'faq': 'Knowledge Base | Ugratara', 'contact': 'Contact | Ugratara' };
         document.title = titles[baseRoute] || 'Ugratara Advisors';
 
- // --- AUTOMATICALLY TRIGGER RENDERS BASED ON THE PAGE YOU LOADED ---
+        // --- AUTOMATICALLY TRIGGER RENDERS BASED ON THE PAGE YOU LOADED ---
         if (baseRoute === 'home') {
             renderHomeGrids();
             loadNewsTicker(); // <--- THIS TURNS THE TICKER ON!
         }
+
+        if (baseRoute === 'ai-assistant') initAIAssistant();
         if (baseRoute === 'services') renderFullServices();
         if (baseRoute === 'intelligence') renderFullArticles();
         if (baseRoute === 'faq') initFAQ();
@@ -90,7 +92,7 @@ window.navigateTo = async function(route, pushState = true) {
 
     } catch (error) {
         console.error('Navigation Error:', error);
-        if(route !== 'home') navigateTo('home', false);
+        if (route !== 'home') navigateTo('home', false);
     }
 };
 
@@ -105,45 +107,45 @@ window.addEventListener('popstate', (event) => {
 // ==========================================
 function renderHomeGrids() {
     const sGrid = document.getElementById('home-services-grid');
-    if(sGrid && db.services) {
-        sGrid.innerHTML = db.services.slice(0,4).map(s => `<div class="service-card p-8 rounded cursor-pointer interactable" onclick="navigateTo('service-detail-${s.id}')"><i data-lucide="${s.icon}" class="w-8 h-8 text-gold mb-6"></i><h3 class="font-serif text-xl font-semibold mb-3">${s.title}</h3><p class="text-themeMuted font-light text-sm">${s.brief}</p></div>`).join('');
+    if (sGrid && db.services) {
+        sGrid.innerHTML = db.services.slice(0, 4).map(s => `<div class="service-card p-8 rounded cursor-pointer interactable" onclick="navigateTo('service-detail-${s.id}')"><i data-lucide="${s.icon}" class="w-8 h-8 text-gold mb-6"></i><h3 class="font-serif text-xl font-semibold mb-3">${s.title}</h3><p class="text-themeMuted font-light text-sm">${s.brief}</p></div>`).join('');
     }
-    
+
     const aGrid = document.getElementById('home-articles-grid');
-    if(aGrid && db.articles) {
-        aGrid.innerHTML = db.articles.slice(0,3).map(a => `<div class="border border-themeBorder p-8 rounded hover:border-gold transition-colors cursor-pointer interactable group" onclick="navigateTo('article-detail-${a.id}')"><span class="text-themeMuted text-[10px] font-semibold tracking-widest mb-3 block uppercase">${a.category}</span><h3 class="font-serif text-2xl font-semibold mb-3 group-hover:text-gold transition-colors line-clamp-2">${a.title}</h3><p class="text-themeMuted font-light text-sm mb-4 line-clamp-2">${a.brief}</p><span class="text-gold text-xs font-semibold uppercase tracking-widest">Read Article →</span></div>`).join('');
+    if (aGrid && db.articles) {
+        aGrid.innerHTML = db.articles.slice(0, 3).map(a => `<div class="border border-themeBorder p-8 rounded hover:border-gold transition-colors cursor-pointer interactable group" onclick="navigateTo('article-detail-${a.id}')"><span class="text-themeMuted text-[10px] font-semibold tracking-widest mb-3 block uppercase">${a.category}</span><h3 class="font-serif text-2xl font-semibold mb-3 group-hover:text-gold transition-colors line-clamp-2">${a.title}</h3><p class="text-themeMuted font-light text-sm mb-4 line-clamp-2">${a.brief}</p><span class="text-gold text-xs font-semibold uppercase tracking-widest">Read Article →</span></div>`).join('');
     }
 }
 
 function renderFullServices() {
     const grid = document.getElementById('full-services-grid');
-    if(grid && db.services) {
+    if (grid && db.services) {
         grid.innerHTML = db.services.map(s => `<div class="service-card p-8 rounded-lg cursor-pointer interactable flex flex-col h-full" onclick="navigateTo('service-detail-${s.id}')"><i data-lucide="${s.icon}" class="w-8 h-8 text-gold mb-6"></i><h3 class="font-serif text-xl font-semibold mb-3">${s.title}</h3><p class="text-themeMuted font-light text-sm flex-grow mb-6">${s.brief}</p><span class="text-gold text-xs font-semibold uppercase tracking-widest border-t border-themeBorder pt-4 inline-block w-full">View Details →</span></div>`).join('');
     }
 }
 
 function renderFullArticles() {
     const grid = document.getElementById('full-articles-grid');
-    if(grid && db.articles) {
+    if (grid && db.articles) {
         grid.innerHTML = db.articles.map(a => `<div class="border border-themeBorder bg-themeSurface p-8 rounded hover:border-gold transition-all duration-300 group interactable cursor-pointer flex flex-col h-full" onclick="navigateTo('article-detail-${a.id}')"><div class="flex justify-between items-start mb-4"><span class="text-gold text-[10px] font-semibold tracking-widest uppercase bg-themeBg px-2 py-1 rounded">${a.category}</span><span class="text-themeMuted text-xs">${a.time}</span></div><h3 class="font-serif text-xl font-semibold mb-4 group-hover:text-gold transition-colors">${a.title}</h3><p class="text-themeMuted font-light text-sm mb-6 flex-grow">${a.brief}</p><span class="text-xs font-semibold uppercase tracking-widest flex items-center text-themeText group-hover:text-gold border-t border-themeBorder pt-4 w-full">Read Guide <i data-lucide="arrow-right" class="w-4 h-4 ml-2"></i></span></div>`).join('');
     }
 }
 
 function loadServiceDetail(id) {
     const s = db.services.find(x => x.id === id);
-    if(!s) return;
+    if (!s) return;
     document.getElementById('dynamic-service-content').innerHTML = `
         <div class="flex items-center gap-4 mb-6"><i data-lucide="${s.icon}" class="w-8 h-8 text-gold"></i><span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold">Service Architecture</span></div>
         <h1 class="font-serif text-4xl md:text-5xl font-semibold mb-8 text-themeText">${s.title}</h1>
         <div class="prose max-w-none"><h3>Executive Overview</h3><p>${s.overview}</p>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 mt-10"><div><h3>Scope of Work</h3><ul>${s.scope.map(x => `<li>${x}</li>`).join('')}</ul></div><div><h3>Key Deliverables</h3><ul>${s.deliverables.map(x => `<li>${x}</li>`).join('')}</ul></div></div>
-        <h3>Implementation Methodology</h3><div class="space-y-4 mt-4 border-l border-gold pl-6">${s.steps.map((x, i) => `<div class="relative"><span class="absolute -left-9 w-6 h-6 bg-navy border border-gold rounded-full flex items-center justify-center text-[10px] text-gold">${i+1}</span><p class="m-0 text-themeText font-medium">${x}</p></div>`).join('')}</div>
+        <h3>Implementation Methodology</h3><div class="space-y-4 mt-4 border-l border-gold pl-6">${s.steps.map((x, i) => `<div class="relative"><span class="absolute -left-9 w-6 h-6 bg-navy border border-gold rounded-full flex items-center justify-center text-[10px] text-gold">${i + 1}</span><p class="m-0 text-themeText font-medium">${x}</p></div>`).join('')}</div>
         <div class="bg-themeBg border border-themeBorder p-6 rounded mt-12"><h4 class="text-gold font-serif text-xl mb-2">Why Ugratara?</h4><p class="text-sm m-0">${s.why}</p></div></div>`;
 }
 
 function loadArticleDetail(id) {
     const a = db.articles.find(x => x.id === id);
-    if(!a) return;
+    if (!a) return;
     document.getElementById('dynamic-article-content').innerHTML = `
         <div class="flex justify-between items-center border-b border-themeBorder pb-6 mb-8"><span class="text-gold uppercase tracking-[0.2em] text-xs font-semibold bg-themeBg px-3 py-1 rounded">${a.category}</span><span class="text-themeMuted text-sm font-light">Reading Time: ${a.time}</span></div>
         <h1>${a.title}</h1><p class="text-lg font-medium text-themeText border-l-2 border-gold pl-4 mb-8">${a.brief}</p>${a.content}
@@ -158,7 +160,7 @@ function loadArticleDetail(id) {
 function initTheme() {
     const themeBtn = document.getElementById('themeToggle');
     const themeBtnMobile = document.getElementById('themeToggleMobile');
-    
+
     const toggle = () => {
         const isDark = document.documentElement.classList.toggle('dark');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
@@ -170,7 +172,7 @@ function initTheme() {
         themeBtn.parentNode.replaceChild(newBtn, themeBtn);
         newBtn.addEventListener('click', toggle);
     }
-    
+
     if (themeBtnMobile) {
         const newBtnMobile = themeBtnMobile.cloneNode(true);
         themeBtnMobile.parentNode.replaceChild(newBtnMobile, themeBtnMobile);
@@ -181,7 +183,7 @@ function initTheme() {
 function initFAQ() {
     const container = document.getElementById('faq-container');
     const searchInput = document.getElementById('faq-search');
-    if(!container || !searchInput) return;
+    if (!container || !searchInput) return;
 
     const renderFAQs = (data) => {
         container.innerHTML = data.map((item, index) => `
@@ -201,15 +203,15 @@ function initFAQ() {
 
     const bindFAQEvents = () => {
         document.querySelectorAll('.faq-btn').forEach(btn => {
-            btn.addEventListener('click', function() {
+            btn.addEventListener('click', function () {
                 const content = this.nextElementSibling;
                 const icon = this.querySelector('.faq-icon');
-                
+
                 document.querySelectorAll('.faq-content').forEach(el => {
-                    if(el !== content) el.classList.add('hidden');
+                    if (el !== content) el.classList.add('hidden');
                 });
                 document.querySelectorAll('.faq-icon').forEach(el => {
-                    if(el !== icon) el.classList.remove('rotate-180');
+                    if (el !== icon) el.classList.remove('rotate-180');
                 });
 
                 content.classList.toggle('hidden');
@@ -227,6 +229,153 @@ function initFAQ() {
     renderFAQs(faqData);
 }
 
+
+// ==========================================
+// AI HUB LOGIC (Chat & Checklist Generator)
+// ==========================================
+
+function initAIAssistant() {
+    // 1. Grab all the elements from your HTML
+    const chatBtn = document.getElementById('btn-send-chat');
+    const chatInput = document.getElementById('ai-chat-input');
+    const genBtn = document.getElementById('btn-generate-checklist');
+
+    // 2. Bind Chat Button
+    if (chatBtn) {
+        // Clone to prevent duplicate clicks during SPA navigation
+        const newChatBtn = chatBtn.cloneNode(true);
+        chatBtn.parentNode.replaceChild(newChatBtn, chatBtn);
+        newChatBtn.addEventListener('click', handleAIChat);
+    }
+
+    // 3. Bind Enter Key for Chat Input
+    if (chatInput) {
+        const newChatInput = chatInput.cloneNode(true);
+        chatInput.parentNode.replaceChild(newChatInput, chatInput);
+        newChatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault(); // Prevents adding a new line
+                handleAIChat();
+            }
+        });
+    }
+
+    // 4. Bind Checklist Generator Button
+    if (genBtn) {
+        const newGenBtn = genBtn.cloneNode(true);
+        genBtn.parentNode.replaceChild(newGenBtn, genBtn);
+        newGenBtn.addEventListener('click', handleChecklistGenerate);
+    }
+}
+
+
+// --- FEATURE 1: AI CHAT ---
+async function handleAIChat() {
+    const inputField = document.getElementById('ai-chat-input');
+    const chatBox = document.getElementById('ai-chat-box');
+    
+    if (!inputField || !chatBox || inputField.value.trim() === '') return;
+
+    const userText = inputField.value.trim();
+    inputField.value = ''; 
+
+    // Add User Message
+    chatBox.innerHTML += `
+        <div class="chat-msg msg-user">
+            ${userText}
+        </div>
+    `;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Add "Thinking" Animation
+    const typingId = 'typing-' + Date.now();
+    chatBox.innerHTML += `
+        <div id="${typingId}" class="chat-msg msg-ai animate-pulse">
+            <span class="text-gold">Ugratara AI is researching...</span>
+        </div>
+    `;
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    try {
+        const response = await fetch('/api/gemini', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: userText })
+        });
+
+        const data = await response.json();
+        
+        // Remove the typing indicator
+        const typingEl = document.getElementById(typingId);
+        if (typingEl) typingEl.remove();
+
+        // If the server was successful, show the answer
+        if (response.ok && data.success) {
+            chatBox.innerHTML += `<div class="chat-msg msg-ai">${data.text}</div>`;
+        } else {
+            // If the server blocked us (Rate Limit), show the exact error message!
+            const errorMessage = data.error || 'Server error occurred.';
+            chatBox.innerHTML += `<div class="chat-msg msg-ai text-red-400 border border-red-500/30 bg-red-500/10">
+                <strong class="text-red-500">Notice:</strong> ${errorMessage}
+            </div>`;
+        }
+    } catch (error) {
+        const typingEl = document.getElementById(typingId);
+        if (typingEl) typingEl.remove();
+        chatBox.innerHTML += `<div class="chat-msg msg-ai text-red-400 border border-red-500/30 bg-red-500/10">Connection lost. Please check your internet or contact Ugratara.</div>`;
+    }
+    
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+// --- FEATURE 2: SMART CHECKLIST GENERATOR ---
+async function handleChecklistGenerate() {
+    const type = document.getElementById('ai-check-type').value;
+    const turnover = document.getElementById('ai-check-turnover').value;
+    const fdi = document.getElementById('ai-check-fdi').value;
+    const outputBox = document.getElementById('checklist-output');
+
+    // Validation
+    if (!type || !turnover) {
+        outputBox.innerHTML = `<p class="text-red-500 text-center font-semibold mt-4">⚠️ Please select a Business Industry and Turnover bracket to generate the checklist.</p>`;
+        return;
+    }
+
+    const systemPrompt = `Act as a senior Nepalese Corporate Lawyer. Generate a strict, step-by-step corporate, OCR, and tax compliance checklist for a newly registered "${type}" business in Nepal. 
+    Expected annual turnover: "${turnover}". 
+    FDI Status: "${fdi}". 
+    Format the output beautifully in HTML using <h3>, <ul>, <li>, and <strong> tags. Make it look like a highly professional corporate document. Keep it under 350 words. Do not use markdown backticks like \`\`\`html.`;
+
+    // Show Loading Spinner
+    outputBox.innerHTML = `
+        <div class="flex flex-col items-center justify-center h-full animate-pulse mt-10">
+            <div class="w-8 h-8 border-4 border-gold border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p class="text-center text-gold font-semibold tracking-widest uppercase text-xs">Analyzing Nepalese Law...</p>
+        </div>
+    `;
+
+    try {
+        const response = await fetch('/api/gemini', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: systemPrompt })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+            // Inject the generated HTML document
+            outputBox.innerHTML = `<div class="animate-fadeIn">${data.text}</div>`;
+        } else {
+            // Show Rate Limit error inside the checklist box
+            const errorMessage = data.error || 'Failed to generate checklist.';
+            outputBox.innerHTML = `<p class="text-red-500 text-center mt-4 p-4 border border-red-500/30 bg-red-500/10 rounded">⚠️ <strong>Notice:</strong> ${errorMessage}</p>`;
+        }
+    } catch (error) {
+        outputBox.innerHTML = `<p class="text-red-500 text-center mt-4">⚠️ Connection lost. Please try again later.</p>`;
+    }
+}
+
 // FULLY RESTORED NEWS TICKER LOGIC
 async function loadNewsTicker() {
     const wrap = document.getElementById('news-ticker-wrap');
@@ -242,7 +391,7 @@ async function loadNewsTicker() {
                 const date = new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                 return `<span class="ticker-item"><span class="text-white opacity-60 mr-2 uppercase text-[10px] tracking-widest">[${date}]</span> <a href="${item.link}" target="_blank" class="hover:text-white transition-colors cursor-pointer interactable">${item.title}</a></span>`;
             }).join('');
-            
+
             content.innerHTML = headlinesHtml;
             wrap.classList.remove('hidden'); // This makes it visible!
             bindCustomCursor();
@@ -256,7 +405,7 @@ async function loadNewsTicker() {
 }
 
 function initReveals() {
-    if(observer) observer.disconnect();
+    if (observer) observer.disconnect();
     const reveals = document.querySelectorAll('.reveal');
     reveals.forEach(el => el.classList.remove('active'));
     observer = new IntersectionObserver((entries, obs) => {
@@ -266,9 +415,9 @@ function initReveals() {
 }
 
 function bindCustomCursor() {
-    if(window.innerWidth > 768) {
+    if (window.innerWidth > 768) {
         document.querySelectorAll('.interactable, a, button, input, textarea, select').forEach(el => {
-            if(!el.dataset.cursorBound) {
+            if (!el.dataset.cursorBound) {
                 el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
                 el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
                 el.dataset.cursorBound = "true";
@@ -281,10 +430,10 @@ function toggleMobileMenu() {
     const mobileMenu = document.getElementById('mobile-menu');
     const iconMenu = document.getElementById('mobile-icon-menu');
     const iconClose = document.getElementById('mobile-icon-close');
-    if(mobileMenu.classList.contains('open')) { 
-        mobileMenu.classList.remove('open'); iconMenu.classList.remove('hidden'); iconClose.classList.add('hidden'); document.body.style.overflowY = 'auto'; 
-    } else { 
-        mobileMenu.classList.add('open'); iconMenu.classList.add('hidden'); iconClose.classList.remove('hidden'); document.body.style.overflowY = 'hidden'; 
+    if (mobileMenu.classList.contains('open')) {
+        mobileMenu.classList.remove('open'); iconMenu.classList.remove('hidden'); iconClose.classList.add('hidden'); document.body.style.overflowY = 'auto';
+    } else {
+        mobileMenu.classList.add('open'); iconMenu.classList.add('hidden'); iconClose.classList.remove('hidden'); document.body.style.overflowY = 'hidden';
     }
 }
 
@@ -295,7 +444,7 @@ async function boot() {
     try {
         const navRes = await fetch('/components/nav.html');
         document.getElementById('nav-placeholder').innerHTML = await navRes.text();
-        
+
         const footerRes = await fetch('/components/footer.html');
         document.getElementById('footer-placeholder').innerHTML = await footerRes.text();
 
@@ -303,18 +452,18 @@ async function boot() {
 
         const themeToggleMobile = document.getElementById('themeToggleMobile');
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        
+
         if (themeToggleMobile) themeToggleMobile.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
         if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
-        
+
         window.addEventListener('scroll', () => {
             const navbar = document.getElementById('navbar');
-            if (window.scrollY > 20) { navbar.classList.add('nav-scrolled', 'py-2'); navbar.classList.remove('py-4', 'md:py-6', 'border-transparent'); } 
+            if (window.scrollY > 20) { navbar.classList.add('nav-scrolled', 'py-2'); navbar.classList.remove('py-4', 'md:py-6', 'border-transparent'); }
             else { navbar.classList.remove('nav-scrolled', 'py-2'); navbar.classList.add('py-4', 'md:py-6', 'border-transparent'); }
         });
 
-        if(window.innerWidth > 768) {
-            const cursorDot = document.querySelector('.cursor-dot'); 
+        if (window.innerWidth > 768) {
+            const cursorDot = document.querySelector('.cursor-dot');
             const cursorOutline = document.querySelector('.cursor-outline');
             if (cursorDot && cursorOutline) {
                 window.addEventListener('mousemove', (e) => {
@@ -326,9 +475,9 @@ async function boot() {
 
 
         // Read the URL and Navigate to the correct page
-const pathRoute = window.location.pathname.substring(1) || 'home';
+        const pathRoute = window.location.pathname.substring(1) || 'home';
         await navigateTo(pathRoute, false);
-        
+
     } catch (error) {
         console.error("Boot sequence failed:", error);
     }

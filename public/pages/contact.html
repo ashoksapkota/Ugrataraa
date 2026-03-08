@@ -47,10 +47,24 @@
                 <textarea id="contact-message" rows="4" required class="w-full bg-transparent border-b border-themeBorder py-3 text-themeText focus:border-gold outline-none text-sm resize-none" placeholder="Brief outline of your corporate requirement..."></textarea>
                 
                 <div id="form-status" class="hidden text-sm font-semibold p-4 rounded text-center border"></div>
+
+                <div class="mb-8 flex items-start">
+    <div class="flex items-center h-5">
+        <input id="terms-agree" type="checkbox" required class="w-4 h-4 bg-themeBg border border-themeBorder rounded focus:ring-gold focus:ring-2 cursor-pointer accent-gold">
+    </div>
+    <div class="ml-3 text-sm">
+        <label for="terms-agree" class="font-light text-themeMuted cursor-pointer">
+            By submitting this form, you agree to our 
+            <a onclick="navigateTo('privacy-terms')" class="text-gold font-medium hover:underline cursor-pointer interactable transition-colors">Terms and Conditions</a> 
+            and acknowledge our Privacy Policy.
+        </label>
+    </div>
+</div>
+
+<button type="submit" class="btn-solid-gold w-full py-4 rounded text-sm uppercase tracking-widest font-semibold interactable">
+    Submit Inquiry
+</button>
                 
-                <button type="submit" id="contact-submit" class="btn-solid-gold w-full py-4 uppercase tracking-widest text-sm font-semibold interactable">Submit Inquiry</button>
-            </form>
-        </div>
         
     </div>
 </section>
