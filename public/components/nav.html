@@ -2,7 +2,7 @@
     class="fixed w-full top-0 z-50 transition-all duration-500 py-4 lg:py-5 border-b border-transparent bg-themeBg/95 backdrop-blur-md">
     <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center">
 
-        <a onclick="navigateTo('home')" class="flex items-center gap-2 xl:gap-3 interactable group cursor-pointer z-50">
+        <a onclick="navigateTo('home'); closeMobileMenu();" class="flex items-center gap-2 xl:gap-3 interactable group cursor-pointer z-50">
             <img src="/assets/logo-icon.png" alt="Ugratara Icon" class="h-10 w-10 xl:h-14 xl:w-14 object-contain transform group-hover:scale-105 transition-transform duration-500">
             <div class="flex flex-col">
                 <span class="font-serif text-xl font-bold tracking-widest text-themeText">UGRATARA</span>
@@ -40,14 +40,15 @@
 
             <a onclick="navigateTo('contact')"
                 class="btn-solid-gold px-6 py-2.5 rounded text-xs uppercase tracking-widest interactable font-bold cursor-pointer">Contact</a>
-            <button id="themeToggle"
+            
+            <button onclick="toggleTheme()" id="themeToggle"
                 class="w-9 h-9 rounded-full border border-gold flex items-center justify-center interactable group ml-1"
                 aria-label="Toggle Dark Mode">
                 <div class="w-3 h-3 bg-gold rounded-full group-hover:bg-themeText transition-colors"></div>
             </button>
         </div>
 
-        <button id="mobile-menu-btn" class="lg:hidden text-gold p-2 interactable z-50 focus:outline-none">
+        <button id="mobile-menu-btn" class="lg:hidden text-gold p-2 interactable z-50 focus:outline-none" onclick="openMobileMenu()">
             <i data-lucide="menu" class="w-8 h-8" id="mobile-icon-menu"></i>
             <i data-lucide="x" class="w-8 h-8 hidden" id="mobile-icon-close"></i>
         </button>
@@ -56,34 +57,73 @@
 
 <div id="mobile-menu"
     class="fixed inset-0 bg-themeBg/98 backdrop-blur-xl z-40 flex flex-col justify-center items-center gap-7 border-b border-gold transform translate-x-full transition-transform duration-300 ease-in-out">
-    <a onclick="navigateTo('home')"
-        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">Home
-        Overview</a>
-    <a onclick="navigateTo('about')"
-        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">About
-        Us</a>
-    <a onclick="navigateTo('services')"
-        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">Full
-        Services</a>
-    <a onclick="navigateTo('methodology')"
-        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">Our
-        Methodology</a>
-    <a onclick="navigateTo('taxation')"
-        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">Taxation
-        Rules</a>
-    <a onclick="navigateTo('intelligence')"
-        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">Knowledge
-        Base</a>
-    <a onclick="navigateTo('ai-assistant')"
-        class="nav-link text-xl font-serif text-gold uppercase tracking-widest cursor-pointer flex items-center gap-2">AI
-        Compliance <i data-lucide="sparkles" class="w-5 h-5"></i></a>
+    
+    <a onclick="navigateTo('home'); closeMobileMenu();"
+        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">Home</a>
+    <a onclick="navigateTo('about'); closeMobileMenu();"
+        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">About</a>
+    <a onclick="navigateTo('services'); closeMobileMenu();"
+        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">Services</a>
+    <a onclick="navigateTo('methodology'); closeMobileMenu();"
+        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">Methodology</a>
+    <a onclick="navigateTo('taxation'); closeMobileMenu();"
+        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">Tax Rules</a>
+    <a onclick="navigateTo('intelligence'); closeMobileMenu();"
+        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">Knowledge Base</a>
+    <a onclick="navigateTo('ai-assistant'); closeMobileMenu();"
+        class="nav-link text-xl font-serif text-gold uppercase tracking-widest cursor-pointer flex items-center gap-2">AI ✨</a>
+    <a onclick="navigateTo('faq'); closeMobileMenu();"
+        class="nav-link text-xl font-serif text-themeText hover:text-gold uppercase tracking-widest cursor-pointer transition-colors">FAQ</a>
 
-    <a onclick="navigateTo('contact')"
-        class="btn-solid-gold px-10 py-4 rounded text-sm uppercase tracking-[0.2em] font-semibold mt-4 cursor-pointer">Book
-        Consultation</a>
+    <a onclick="navigateTo('contact'); closeMobileMenu();"
+        class="btn-solid-gold px-10 py-4 rounded text-sm uppercase tracking-[0.2em] font-semibold mt-4 cursor-pointer">Contact</a>
 
-    <button id="themeToggleMobile"
+    <button onclick="toggleTheme()" id="themeToggleMobile"
         class="mt-8 text-themeMuted uppercase tracking-widest text-xs flex items-center gap-2 hover:text-gold transition-colors">
         Toggle Theme
     </button>
 </div>
+
+<!-- <script>
+    // 1. Instantly swap themes and save preference
+    function toggleTheme() {
+        document.documentElement.classList.toggle('dark');
+        if (document.documentElement.classList.contains('dark')) {
+            localStorage.setItem('theme', 'dark');
+        } else {
+            localStorage.setItem('theme', 'light');
+        }
+    }
+
+    // 2. Open the mobile menu (if you don't already have this in app.js)
+    function openMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('mobile-icon-menu');
+        const closeIcon = document.getElementById('mobile-icon-close');
+        
+        if (mobileMenu.classList.contains('translate-x-full')) {
+            mobileMenu.classList.remove('translate-x-full');
+            mobileMenu.classList.add('translate-x-0');
+            menuIcon.classList.add('hidden');
+            closeIcon.classList.remove('hidden');
+        } else {
+            closeMobileMenu();
+        }
+    }
+
+    // 3. Auto-close the mobile menu when a link is clicked
+    function closeMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('mobile-icon-menu');
+        const closeIcon = document.getElementById('mobile-icon-close');
+        
+        if(mobileMenu) {
+            mobileMenu.classList.remove('translate-x-0');
+            mobileMenu.classList.add('translate-x-full');
+        }
+        if(menuIcon && closeIcon) {
+            menuIcon.classList.remove('hidden');
+            closeIcon.classList.add('hidden');
+        }
+    }
+</script> -->

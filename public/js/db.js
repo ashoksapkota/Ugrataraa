@@ -1,20 +1,486 @@
 export const db = {
-    services: [
-        { id: "tax-advisory", title: "Tax Advisory & Planning", icon: "scale", brief: "Strategic planning to legally minimize tax liabilities.", overview: "Expert navigation of Nepal's Income Tax Act 2058. We engineer corporate structures to optimize tax efficiency while ensuring total legal compliance.", scope: ["Corporate Tax Strategy", "Expatriate Taxation", "DTAA (Double Tax Avoidance) Application", "Transfer Pricing Review"], steps: ["Analyze current revenue streams", "Map against Finance Bill concessions", "Implement tax-efficient holding structures", "Quarterly review of tax provisions"], deliverables: ["Tax Optimization Report", "Quarterly Tax Provision Statements"], why: "Deep connections with IRD nuances and proactive interpretation of annual Finance Bills." },
-        { id: "tax-compliance", title: "Tax Compliance (VAT, TDS)", icon: "file-check-2", brief: "Rigorous filing of monthly VAT, TDS, and Excise returns.", overview: "We operate as your external tax department, guaranteeing zero missed deadlines and zero penalty exposure for VAT and Withholding Tax.", scope: ["Monthly VAT Returns", "E-TDS Uploads", "Excise Duty Management", "Advance Tax Deposits"], steps: ["Collect raw ledgers", "Reconcile VAT input/output", "Generate and upload E-TDS text files", "Deposit verified tax amounts"], deliverables: ["Filed VAT Returns", "TDS Certificates for Vendors"], why: "100% precision utilizing automated reconciliation scripts against IRD portals." },
-        { id: "accounting", title: "Accounting & Bookkeeping", icon: "book-open", brief: "NFRS-compliant day-to-day cloud accounting.", overview: "Flawless financial record-keeping utilizing cloud software like Tally Prime, Xero, or QuickBooks, tailored for Nepalese SME operations.", scope: ["Daily Ledger Entries", "Bank Reconciliations", "Fixed Asset Register Maintenance", "Inventory Accounting"], steps: ["Setup Chart of Accounts", "Daily data entry via cloud", "Monthly bank reconciliation", "Draft trial balance"], deliverables: ["Monthly Trial Balance", "Debtor/Creditor Aging Reports"], why: "Real-time financial visibility rather than year-end scrambling." },
-        { id: "audit", title: "Audit & Assurance", icon: "shield-check", brief: "Statutory audits mandated by the Companies Act.", overview: "Independent financial assessments conducted by ICAN-licensed professionals ensuring statements present a true and fair view to stakeholders.", scope: ["Statutory Audit", "Tax Audit", "Compliance Audit"], steps: ["Risk assessment and planning", "Fieldwork and evidence gathering", "Drafting management letter", "Final sign-off"], deliverables: ["Audited Financial Statements", "Independent Auditor's Report", "Management Letter"], why: "We build ultimate trust with OCR, IRD, and commercial banks." },
-        { id: "fin-statements", title: "Financial Statement Prep", icon: "pie-chart", brief: "Drafting balance sheets according to NFRS standards.", overview: "Conversion of raw trial balances into fully compliant NFRS financial statements required by banks and regulators.", scope: ["NFRS Conversion", "Cash Flow Statements", "Notes to Accounts Drafting"], steps: ["Analyze Trial Balance", "Apply NFRS adjustments", "Draft comprehensive notes", "Finalize pack"], deliverables: ["Complete Financial Pack (Balance Sheet, P&L, Cash Flow, Notes)"], why: "Highly technical team trained by ASB guidelines." },
-        { id: "business-reg", title: "Business Registration", icon: "building-2", brief: "End-to-end company incorporation at OCR.", overview: "Seamless registration of Private Limited, Public Limited, or Non-Profit companies at the Office of the Company Registrar.", scope: ["Name Reservation", "MOA/AOA Drafting", "OCR Filing", "Ward Registration"], steps: ["Select name", "Draft constitutional documents", "File online at OCR", "Obtain physical certificate"], deliverables: ["Company Registration Certificate", "Approved MOA/AOA"], why: "Speed and precision; we avoid the common drafting errors that delay incorporation." },
-        { id: "pan-vat-reg", title: "PAN & VAT Registration", icon: "badge-check", brief: "Securing tax identities from the IRD.", overview: "Mandatory tax registration for newly formed entities or businesses crossing the 50 Lakh/20 Lakh turnover thresholds.", scope: ["Business PAN", "VAT Registration", "EXIM Code Registration"], steps: ["Prepare application via IRD portal", "Gather KYC documents", "Physical visit to IRD office", "Procure certificate"], deliverables: ["PAN/VAT Certificate", "Biometric verification completion"], why: "Hassle-free liaison with government tax offices." },
-        { id: "internal-control", title: "Internal Risk Advisory", icon: "alert-triangle", brief: "Detecting fraud and strengthening internal SOPs.", overview: "Designing robust internal controls to prevent capital leakage, employee fraud, and operational inefficiencies.", scope: ["SOP Drafting", "Fraud Investigation", "Inventory Audits"], steps: ["Map current processes", "Identify control weaknesses", "Draft new SOPs", "Train staff"], deliverables: ["Risk Assessment Matrix", "Customized SOP Manual"], why: "Proactive defense of corporate assets." },
-        { id: "fin-strategy", title: "Financial Strategy", icon: "trending-up", brief: "Long-term financial modeling and CFO services.", overview: "We act as your outsourced CFO board, advising on capital expansion, pricing strategies, and cash flow management.", scope: ["Financial Modeling", "Budgeting & Forecasting", "Pricing Strategy"], steps: ["Analyze historical data", "Build 5-year financial models", "Present to Board", "Monthly variance analysis"], deliverables: ["Dynamic Financial Model (Excel)", "Monthly Variance Report"], why: "Bridging the gap between accounting data and executive decision-making." },
-        { id: "investment", title: "Investment & Capital Advisory", icon: "landmark", brief: "FDI facilitation and capital raising.", overview: "Navigating Foreign Direct Investment (FDI) channels, Department of Industry approvals, and NRB repatriation routes.", scope: ["FDI Approvals (DOI)", "NRB Capital Bring-in", "Dividend Repatriation"], steps: ["Draft business plan for DOI", "Secure FDI approval", "Apply for NRB routing", "Facilitate bank transfers"], deliverables: ["DOI FDI Approval Letter", "NRB Clearance Certificate"], why: "Navigating Nepal's complex foreign exchange regulations flawlessly." },
-        { id: "payroll", title: "Payroll Management", icon: "users", brief: "Managing salaries, SSF, and CIT compliance.", overview: "Confidential and accurate processing of employee payroll, ensuring strict adherence to Nepal's Labor Act.", scope: ["Salary Calculation", "1% Social Security Tax", "SSF (Social Security Fund) Deposits", "CIT (Citizen Investment Trust)"], steps: ["Receive attendance data", "Calculate gross/net pay and taxes", "Generate payslips", "Upload E-TDS and SSF files"], deliverables: ["Monthly Payslips", "Tax/SSF Deposit Vouchers"], why: "Eliminates employer liability and ensures employee satisfaction." },
-        { id: "due-diligence", title: "Due Diligence (M&A)", icon: "search", brief: "Financial investigations prior to acquisitions.", overview: "Comprehensive financial and tax investigations for investors or companies looking to merge or acquire in Nepal.", scope: ["Financial Due Diligence", "Tax Due Diligence", "Legal Compliance Review"], steps: ["Sign NDA", "Access data room", "Analyze 3-5 years of financials", "Draft risk report"], deliverables: ["Comprehensive DD Report highlighting red flags"], why: "Protecting capital before the ink dries on an acquisition." },
-        { id: "ngo-compliance", title: "NGO/INGO Compliance", icon: "globe", brief: "Specialized audits for the Social Welfare Council.", overview: "Navigating the unique financial reporting requirements of non-profits, including SWC audits and donor reporting.", scope: ["Project Audits", "SWC Compliance", "Fund Accountability Statements"], steps: ["Review donor agreements", "Audit project expenses", "Verify SWC approvals", "Draft final report"], deliverables: ["Project Audit Report", "SWC Clearance Facilitation"], why: "Specialized knowledge of USAID, EU, and SWC financial guidelines." },
-        { id: "tax-dispute", title: "Tax Dispute Representation", icon: "gavel", brief: "Defending clients against IRD tax assessments.", overview: "Aggressive, legally-backed representation during complex IRD tax audits, full tax assessments, and administrative reviews.", scope: ["Administrative Review filing", "Revenue Tribunal Representation", "Penalty Waiver Negotiation"], steps: ["Analyze IRD assessment order", "Draft legal rebuttal based on Tax Act", "Attend IRD hearings", "Escalate to Tribunal if needed"], deliverables: ["Legal Defense Brief", "Representation Hearings"], why: "We fight unjustified tax assessments using deep legal precedent." }
-    ],
+
+  services: [
+
+    {
+      id: "tax-advisory",
+      title: "Tax Advisory & Planning",
+      icon: "scale",
+
+      brief: "Strategic planning to legally minimize tax liabilities.",
+
+      overview:
+        "Expert navigation of Nepal's Income Tax Act 2058. We engineer corporate structures to optimize tax efficiency while ensuring full legal compliance.",
+
+      scope: [
+        "Corporate Tax Strategy",
+        "Expatriate Taxation",
+        "DTAA Application",
+        "Transfer Pricing Review"
+      ],
+
+      steps: [
+        "Analyze revenue streams",
+        "Review tax concessions",
+        "Design optimized structures",
+        "Quarterly tax monitoring"
+      ],
+
+      deliverables: [
+        "Tax Optimization Report",
+        "Quarterly Tax Provision Statement"
+      ],
+
+      why:
+        "Deep expertise in Nepal's tax laws and Finance Bill updates."
+    },
+
+
+    {
+      id: "tax-compliance",
+      title: "Tax Compliance (VAT, TDS)",
+      icon: "file-check-2",
+
+      brief:
+        "Monthly VAT, TDS, and tax filing services.",
+
+      overview:
+        "We manage all tax filings ensuring deadlines are never missed and penalties are avoided.",
+
+      scope: [
+        "VAT Returns",
+        "E-TDS Upload",
+        "Advance Tax Payment",
+        "Excise Compliance"
+      ],
+
+      steps: [
+        "Collect accounting data",
+        "Reconcile VAT",
+        "Prepare returns",
+        "Submit to IRD"
+      ],
+
+      deliverables: [
+        "Filed VAT Returns",
+        "TDS Certificates"
+      ],
+
+      why:
+        "Automated reconciliation and precise tax compliance."
+    },
+
+
+    {
+      id: "accounting",
+      title: "Accounting & Bookkeeping",
+      icon: "book-open",
+
+      brief:
+        "Cloud based NFRS accounting services.",
+
+      overview:
+        "Daily accounting and financial record management using modern accounting software.",
+
+      scope: [
+        "Ledger Management",
+        "Bank Reconciliation",
+        "Inventory Accounting",
+        "Fixed Asset Register"
+      ],
+
+      steps: [
+        "Setup accounting system",
+        "Record transactions",
+        "Monthly reconciliation",
+        "Trial balance preparation"
+      ],
+
+      deliverables: [
+        "Monthly Financial Reports",
+        "Debtor/Creditor Reports"
+      ],
+
+      why:
+        "Provides real-time financial clarity."
+    },
+
+
+    {
+      id: "audit",
+      title: "Internal Audit & Assurance",
+      icon: "shield-check",
+
+      brief:
+        "Independent statutory and tax audits.",
+
+      overview:
+        "Audits performed by ICAN registered auditors ensuring compliance with regulatory requirements.",
+
+      scope: [
+        "Tax Audit",
+        "Compliance Audit"
+      ],
+
+      steps: [
+        "Risk assessment",
+        "Audit fieldwork",
+        "Evidence collection"
+      ],
+
+      deliverables: [
+        "Audited Financial Statements",
+        "Audit Opinion Report",
+        "Management Letter"
+      ],
+
+      why:
+        "Enhances trust with regulators and banks."
+    },
+
+
+    {
+      id: "fin-statements",
+      title: "Financial Statement Preparation",
+      icon: "pie-chart",
+
+      brief:
+        "NFRS compliant financial statements.",
+
+      overview:
+        "Preparation of balance sheets, profit and loss statements and notes as per NFRS.",
+
+      scope: [
+        "Balance Sheet",
+        "Profit & Loss",
+        "Cash Flow Statement",
+        "Notes to Accounts"
+      ],
+
+      steps: [
+        "Trial balance review",
+        "Apply NFRS adjustments",
+        "Prepare notes",
+        "Finalize financial pack"
+      ],
+
+      deliverables: [
+        "Complete Financial Statement Pack"
+      ],
+
+      why:
+        "Prepared according to Accounting Standards Board guidelines."
+    },
+
+
+    {
+      id: "business-reg",
+      title: "Company Registration",
+      icon: "building-2",
+
+      brief:
+        "Complete business incorporation service.",
+
+      overview:
+        "Register Private Limited, Public Limited, and other legal entities in Nepal.",
+
+      scope: [
+        "Name Reservation",
+        "MOA/AOA Drafting",
+        "OCR Filing",
+        "Ward Registration"
+      ],
+
+      steps: [
+        "Reserve company name",
+        "Prepare documents",
+        "Submit to OCR",
+        "Receive certificate"
+      ],
+
+      deliverables: [
+        "Company Registration Certificate",
+        "MOA/AOA"
+      ],
+
+      why:
+        "Fast and error-free registration."
+    },
+
+
+    {
+      id: "pan-vat-reg",
+      title: "PAN & VAT Registration",
+      icon: "badge-check",
+
+      brief:
+        "IRD tax registration services.",
+
+      overview:
+        "Registration of PAN, VAT, and EXIM codes.",
+
+      scope: [
+        "Business PAN",
+        "VAT Registration",
+        "EXIM Code"
+      ],
+
+      steps: [
+        "Prepare documents",
+        "Submit IRD application",
+        "Biometric verification",
+        "Receive certificate"
+      ],
+
+      deliverables: [
+        "PAN/VAT Certificate"
+      ],
+
+      why:
+        "Smooth handling with tax offices."
+    },
+
+
+    {
+      id: "internal-control",
+      title: "Internal Risk Advisory",
+      icon: "alert-triangle",
+
+      brief:
+        "Fraud prevention and internal control consulting.",
+
+      overview:
+        "Designing SOPs and internal processes to minimize business risks.",
+
+      scope: [
+        "Process Mapping",
+        "Fraud Investigation",
+        "SOP Design"
+      ],
+
+      steps: [
+        "Review processes",
+        "Identify risk",
+        "Design controls",
+        "Implement SOP"
+      ],
+
+      deliverables: [
+        "Risk Assessment Report",
+        "Internal Control Manual"
+      ],
+
+      why:
+        "Protects company assets."
+    },
+
+
+    {
+      id: "fin-strategy",
+      title: "Financial Strategy",
+      icon: "trending-up",
+
+      brief:
+        "Long-term financial planning and CFO advisory.",
+
+      overview:
+        "Strategic financial modelling and business growth advisory.",
+
+      scope: [
+        "Financial Modeling",
+        "Budgeting",
+        "Pricing Strategy"
+      ],
+
+      steps: [
+        "Analyze financial history",
+        "Create forecast",
+        "Board presentation",
+        "Monthly monitoring"
+      ],
+
+      deliverables: [
+        "Financial Model",
+        "Forecast Report"
+      ],
+
+      why:
+        "Transforms financial data into business strategy."
+    },
+
+
+    {
+      id: "investment",
+      title: "Investment & Capital Advisory",
+      icon: "landmark",
+
+      brief:
+        "FDI and investment structuring.",
+
+      overview:
+        "Advisory for foreign investors entering Nepal.",
+
+      scope: [
+        "FDI Approval",
+        "NRB Routing",
+        "Dividend Repatriation"
+      ],
+
+      steps: [
+        "Prepare investment proposal",
+        "Apply DOI approval",
+        "NRB clearance",
+        "Capital transfer"
+      ],
+
+      deliverables: [
+        "FDI Approval",
+        "NRB Clearance"
+      ],
+
+      why:
+        "Deep understanding of Nepal's foreign investment framework."
+    },
+
+
+    {
+      id: "payroll",
+      title: "Payroll Management",
+      icon: "users",
+
+      brief:
+        "Employee salary and tax management.",
+
+      overview:
+        "Complete payroll services ensuring SSF and CIT compliance.",
+
+      scope: [
+        "Salary Processing",
+        "SSF Deposits",
+        "CIT Deposits"
+      ],
+
+      steps: [
+        "Collect attendance",
+        "Calculate payroll",
+        "Generate payslips",
+        "Submit SSF"
+      ],
+
+      deliverables: [
+        "Payslips",
+        "Payroll Reports"
+      ],
+
+      why:
+        "Ensures employee and legal compliance."
+    },
+
+
+    {
+      id: "due-diligence",
+      title: "Due Diligence",
+      icon: "search",
+
+      brief:
+        "Financial investigations before mergers or acquisitions.",
+
+      overview:
+        "Detailed financial and tax due diligence for investors.",
+
+      scope: [
+        "Financial Review",
+        "Tax Review",
+        "Compliance Review"
+      ],
+
+      steps: [
+        "Access financial data",
+        "Analyze statements",
+        "Identify risks",
+        "Prepare report"
+      ],
+
+      deliverables: [
+        "Due Diligence Report"
+      ],
+
+      why:
+        "Protects investors from hidden liabilities."
+    },
+
+
+    {
+      id: "ngo-compliance",
+      title: "NGO/INGO Compliance",
+      icon: "globe",
+
+      brief:
+        "Compliance and audits for non-profits.",
+
+      overview:
+        "Financial reporting and audits for NGOs and INGOs.",
+
+      scope: [
+        "Project Audit",
+        "SWC Compliance",
+        "Donor Reporting"
+      ],
+
+      steps: [
+        "Review donor contracts",
+        "Audit project spending",
+        "Prepare reports",
+        "Submit compliance"
+      ],
+
+      deliverables: [
+        "Audit Report",
+        "SWC Compliance Certificate"
+      ],
+
+      why:
+        "Expert knowledge of NGO regulations."
+    },
+
+
+    {
+      id: "tax-dispute",
+      title: "Tax Dispute Representation",
+      icon: "gavel",
+
+      brief:
+        "Representation during tax disputes.",
+
+      overview:
+        "Professional representation during IRD audits and tax disputes.",
+
+      scope: [
+        "Administrative Review",
+        "Tribunal Representation",
+        "Penalty Negotiation"
+      ],
+
+      steps: [
+        "Analyze tax notice",
+        "Prepare legal response",
+        "Attend hearings",
+        "Resolve dispute"
+      ],
+
+      deliverables: [
+        "Legal Representation",
+        "Dispute Resolution"
+      ],
+
+      why:
+        "Strong legal defense against unfair tax assessments."
+    }
+
+  ],
+
+
+  
     articles: [
         { id: "income-tax-guide", title: "Complete Guide to Income Tax in Nepal (Latest Rules)", category: "Taxation", time: "12 Min", brief: "A definitive breakdown of corporate and individual income tax slabs, allowable deductions, and advance tax requirements under the Income Tax Act 2058.", content: "<h2>Introduction to Nepal's Income Tax</h2><p>Income tax in Nepal is governed by the Income Tax Act, 2058 (2002). It operates on a self-assessment system, meaning taxpayers must calculate their own liability and file returns. However, the Inland Revenue Department (IRD) holds the right to conduct full or partial tax audits.</p><h2>Corporate Tax Rates</h2><p>The standard corporate tax rate for private limited companies is 25%. However, there are numerous concessions:</p><ul><li>Banks and Financial Institutions: 30%</li><li>Manufacturing Industries: 20% (Various exemptions exist based on location and employee count)</li><li>Special Economic Zones (SEZ): Significant tax holidays for the first 5-10 years.</li></ul><h2>Allowable Deductions (Section 13-19)</h2><p>To optimize tax, companies must understand what expenses are deductible. General rule: Expenses must be directly related to generating taxable income. Key deductions include:</p><ul><li>Interest expenses (subject to thin capitalization rules).</li><li>Depreciation of fixed assets (Pool system: A, B, C, D, E).</li><li>Repair and maintenance (capped at 7% of the depreciation pool base).</li></ul><h2>Filing Deadlines & Advance Tax</h2><p>Companies must pay Advance Tax in three installments based on estimated annual tax liability: Poush end (40%), Chaitra end (70% cumulative), and Ashad end (100%). Final returns (D-03/D-04) must be filed by Ashwin end (3 months post fiscal year).</p><h3>FAQs</h3><p><strong>Q: What is the penalty for late filing?</strong><br>A: 0.1% per annum of the assessable income or NPR 100 per month, whichever is higher, plus 15% interest on unpaid tax.</p>" },
         { id: "vat-reg-process", title: "VAT Registration Process in Nepal (Step-by-Step)", category: "Compliance", time: "8 Min", brief: "Understand the 13% VAT framework, mandatory thresholds (Goods vs Services), and the electronic filing process.", content: "<h2>Understanding VAT in Nepal</h2><p>Value Added Tax (VAT) is a 13% indirect tax levied on the value added at each stage of supply. It is governed by the VAT Act, 2052.</p><h2>Mandatory Registration Thresholds</h2><p>Not every business needs to register for VAT immediately. Registration is mandatory if your transactions in the last 12 months exceed:</p><ul><li>NPR 50 Lakhs (5 Million) for businesses dealing in Goods.</li><li>NPR 20 Lakhs (2 Million) for businesses dealing in Services.</li><li>NPR 20 Lakhs for businesses dealing in both Goods and Services.</li></ul><p><em>Note: Certain businesses like hardware, electronics, and consulting must register for VAT regardless of turnover.</em></p><h2>The Registration Process</h2><p>1. Prepare Documents: Company Reg Certificate, PAN, Lease Agreement, Citizenship copies, and Board Resolution.</p><p>2. Online Submission: Fill out the application on the IRD portal.</p><p>3. Biometrics: The directors must visit the respective Inland Revenue Office (IRO) for biometric verification.</p><p>4. Certificate: Receive the VAT certificate and immediately begin issuing VAT invoices.</p><h2>Monthly Filing</h2><p>VAT returns must be filed electronically by the 25th of the following Nepali month, even if there are zero transactions (Zero Return).</p>" },

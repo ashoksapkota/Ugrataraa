@@ -33,6 +33,12 @@ const faqData = [
 // ==========================================
 window.navigateTo = async function (route, pushState = true) {
     try {
+        // --- FIX: Auto-close mobile menu on navigation ---
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenu && mobileMenu.classList.contains('open')) {
+            toggleMobileMenu(); // Calls your existing function to cleanly close UI
+        }
+        
         // Smart routing to handle specific detail pages (e.g. service-detail-audit)
         let baseRoute = route;
         let paramId = null;
@@ -76,7 +82,7 @@ window.navigateTo = async function (route, pushState = true) {
         // --- AUTOMATICALLY TRIGGER RENDERS BASED ON THE PAGE YOU LOADED ---
         if (baseRoute === 'home') {
             renderHomeGrids();
-            loadNewsTicker(); // <--- THIS TURNS THE TICKER ON!
+            loadNewsTicker(); 
         }
 
         if (baseRoute === 'ai-assistant') initAIAssistant();
@@ -85,6 +91,9 @@ window.navigateTo = async function (route, pushState = true) {
         if (baseRoute === 'faq') initFAQ();
         if (baseRoute === 'service-detail' && paramId) loadServiceDetail(paramId);
         if (baseRoute === 'article-detail' && paramId) loadArticleDetail(paramId);
+
+        // Bind contact form logic if we are on the contact page
+        if (baseRoute === 'contact') bindContactForm();
 
         lucide.createIcons();
         initReveals();
@@ -154,25 +163,35 @@ function loadArticleDetail(id) {
 
 
 // ==========================================
-// 3. UI COMPONENTS (FAQ, Ticker, Cursor)
+// 3. UI COMPONENTS (Theme, FAQ, Ticker, Cursor)
 // ==========================================
 
 function initTheme() {
+    // --- FIX: Apply instantly on page load ---
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+    } else if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+    }
+
     const themeBtn = document.getElementById('themeToggle');
     const themeBtnMobile = document.getElementById('themeToggleMobile');
 
     const toggle = () => {
+        // Toggles class instantly and saves to localStorage
         const isDark = document.documentElement.classList.toggle('dark');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
     };
 
+    // Cleanly bind desktop button
     if (themeBtn) {
-        // Remove old listeners to prevent duplicates
         const newBtn = themeBtn.cloneNode(true);
         themeBtn.parentNode.replaceChild(newBtn, themeBtn);
         newBtn.addEventListener('click', toggle);
     }
 
+    // Cleanly bind mobile button
     if (themeBtnMobile) {
         const newBtnMobile = themeBtnMobile.cloneNode(true);
         themeBtnMobile.parentNode.replaceChild(newBtnMobile, themeBtnMobile);
@@ -235,32 +254,27 @@ function initFAQ() {
 // ==========================================
 
 function initAIAssistant() {
-    // 1. Grab all the elements from your HTML
     const chatBtn = document.getElementById('btn-send-chat');
     const chatInput = document.getElementById('ai-chat-input');
     const genBtn = document.getElementById('btn-generate-checklist');
 
-    // 2. Bind Chat Button
     if (chatBtn) {
-        // Clone to prevent duplicate clicks during SPA navigation
         const newChatBtn = chatBtn.cloneNode(true);
         chatBtn.parentNode.replaceChild(newChatBtn, chatBtn);
         newChatBtn.addEventListener('click', handleAIChat);
     }
 
-    // 3. Bind Enter Key for Chat Input
     if (chatInput) {
         const newChatInput = chatInput.cloneNode(true);
         chatInput.parentNode.replaceChild(newChatInput, chatInput);
         newChatInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault(); // Prevents adding a new line
+                e.preventDefault(); 
                 handleAIChat();
             }
         });
     }
 
-    // 4. Bind Checklist Generator Button
     if (genBtn) {
         const newGenBtn = genBtn.cloneNode(true);
         genBtn.parentNode.replaceChild(newGenBtn, genBtn);
@@ -268,32 +282,20 @@ function initAIAssistant() {
     }
 }
 
-
-// --- FEATURE 1: AI CHAT ---
 async function handleAIChat() {
     const inputField = document.getElementById('ai-chat-input');
     const chatBox = document.getElementById('ai-chat-box');
-    
+
     if (!inputField || !chatBox || inputField.value.trim() === '') return;
 
     const userText = inputField.value.trim();
-    inputField.value = ''; 
+    inputField.value = '';
 
-    // Add User Message
-    chatBox.innerHTML += `
-        <div class="chat-msg msg-user">
-            ${userText}
-        </div>
-    `;
+    chatBox.innerHTML += `<div class="chat-msg msg-user">${userText}</div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
 
-    // Add "Thinking" Animation
     const typingId = 'typing-' + Date.now();
-    chatBox.innerHTML += `
-        <div id="${typingId}" class="chat-msg msg-ai animate-pulse">
-            <span class="text-gold">Ugratara AI is researching...</span>
-        </div>
-    `;
+    chatBox.innerHTML += `<div id="${typingId}" class="chat-msg msg-ai animate-pulse"><span class="text-gold">Ugratara AI is researching...</span></div>`;
     chatBox.scrollTop = chatBox.scrollHeight;
 
     try {
@@ -304,38 +306,30 @@ async function handleAIChat() {
         });
 
         const data = await response.json();
-        
-        // Remove the typing indicator
         const typingEl = document.getElementById(typingId);
         if (typingEl) typingEl.remove();
 
-        // If the server was successful, show the answer
         if (response.ok && data.success) {
             chatBox.innerHTML += `<div class="chat-msg msg-ai">${data.text}</div>`;
         } else {
-            // If the server blocked us (Rate Limit), show the exact error message!
             const errorMessage = data.error || 'Server error occurred.';
-            chatBox.innerHTML += `<div class="chat-msg msg-ai text-red-400 border border-red-500/30 bg-red-500/10">
-                <strong class="text-red-500">Notice:</strong> ${errorMessage}
-            </div>`;
+            chatBox.innerHTML += `<div class="chat-msg msg-ai text-red-400 border border-red-500/30 bg-red-500/10"><strong class="text-red-500">Notice:</strong> ${errorMessage}</div>`;
         }
     } catch (error) {
         const typingEl = document.getElementById(typingId);
         if (typingEl) typingEl.remove();
         chatBox.innerHTML += `<div class="chat-msg msg-ai text-red-400 border border-red-500/30 bg-red-500/10">Connection lost. Please check your internet or contact Ugratara.</div>`;
     }
-    
+
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// --- FEATURE 2: SMART CHECKLIST GENERATOR ---
 async function handleChecklistGenerate() {
     const type = document.getElementById('ai-check-type').value;
     const turnover = document.getElementById('ai-check-turnover').value;
     const fdi = document.getElementById('ai-check-fdi').value;
     const outputBox = document.getElementById('checklist-output');
 
-    // Validation
     if (!type || !turnover) {
         outputBox.innerHTML = `<p class="text-red-500 text-center font-semibold mt-4">⚠️ Please select a Business Industry and Turnover bracket to generate the checklist.</p>`;
         return;
@@ -346,7 +340,6 @@ async function handleChecklistGenerate() {
     FDI Status: "${fdi}". 
     Format the output beautifully in HTML using <h3>, <ul>, <li>, and <strong> tags. Make it look like a highly professional corporate document. Keep it under 350 words. Do not use markdown backticks like \`\`\`html.`;
 
-    // Show Loading Spinner
     outputBox.innerHTML = `
         <div class="flex flex-col items-center justify-center h-full animate-pulse mt-10">
             <div class="w-8 h-8 border-4 border-gold border-t-transparent rounded-full animate-spin mb-4"></div>
@@ -364,10 +357,8 @@ async function handleChecklistGenerate() {
         const data = await response.json();
 
         if (response.ok && data.success) {
-            // Inject the generated HTML document
             outputBox.innerHTML = `<div class="animate-fadeIn">${data.text}</div>`;
         } else {
-            // Show Rate Limit error inside the checklist box
             const errorMessage = data.error || 'Failed to generate checklist.';
             outputBox.innerHTML = `<p class="text-red-500 text-center mt-4 p-4 border border-red-500/30 bg-red-500/10 rounded">⚠️ <strong>Notice:</strong> ${errorMessage}</p>`;
         }
@@ -375,6 +366,7 @@ async function handleChecklistGenerate() {
         outputBox.innerHTML = `<p class="text-red-500 text-center mt-4">⚠️ Connection lost. Please try again later.</p>`;
     }
 }
+
 
 // FULLY RESTORED NEWS TICKER LOGIC
 async function loadNewsTicker() {
@@ -393,7 +385,7 @@ async function loadNewsTicker() {
             }).join('');
 
             content.innerHTML = headlinesHtml;
-            wrap.classList.remove('hidden'); // This makes it visible!
+            wrap.classList.remove('hidden'); 
             bindCustomCursor();
         } else {
             content.innerHTML = `<span class="ticker-item text-themeMuted">Live financial news feed temporarily unavailable.</span>`;
@@ -448,12 +440,10 @@ async function boot() {
         const footerRes = await fetch('/components/footer.html');
         document.getElementById('footer-placeholder').innerHTML = await footerRes.text();
 
+        // Initialize Theme AFTER nav is loaded so buttons exist
         initTheme();
 
-        const themeToggleMobile = document.getElementById('themeToggleMobile');
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-
-        if (themeToggleMobile) themeToggleMobile.addEventListener('click', () => document.documentElement.classList.toggle('dark'));
         if (mobileMenuBtn) mobileMenuBtn.addEventListener('click', toggleMobileMenu);
 
         window.addEventListener('scroll', () => {
@@ -472,7 +462,6 @@ async function boot() {
                 });
             }
         }
-
 
         // Read the URL and Navigate to the correct page
         const pathRoute = window.location.pathname.substring(1) || 'home';
